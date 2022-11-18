@@ -1,5 +1,23 @@
+import {
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from 'react-router-dom';
+
+import { Home, User } from './pages';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path='/' element={<Home />} />
+      <Route path=':username' element={<User />} />
+    </>
+  )
+);
+
 function App() {
-  return <div className='text-3xl text-red-600 underline'>Hello World</div>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
