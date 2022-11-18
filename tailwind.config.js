@@ -12,6 +12,11 @@ module.exports = {
       arial: ['Arial', 'Helvetica', 'sans-serif'],
       seoge: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
     },
+    colors: {
+      black_1: '#111111',
+      blue_1: '#007fff',
+      gray_1: '#767676',
+    },
     extend: {},
   },
   plugins: [],

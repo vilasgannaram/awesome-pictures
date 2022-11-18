@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, Outlet } from 'react-router';
 
 import { Link } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ import {
   selectStatus,
 } from '../../features/user/userSlice';
 
+import { paypal } from '../../assets';
 // microsoft365
 
 const User = () => {
@@ -35,36 +36,8 @@ const User = () => {
 
   return (
     <>
-      {status === 'pending' ? <p>loading</p> : null}
-      {status === 'fulfilled' ? (
-        <div className='mx-auto mt-8 w-[95%]'>
-          <div>
-            <div>
-              <img src={user.profile_image.large} alt='' />
-            </div>
-
-            <div className='mt-6 font-arial'>
-              <h1 className='text-[21px] font-bold leading-[25px]'>{`${user?.first_name} ${user?.last_name}`}</h1>
-              <p className='mt-6 text-[15px] leading-6'>{user?.bio}</p>
-
-              <div className='mt-6 text-[15px] leading-6'>
-                <h2>Interests</h2>
-                <div className='flex items-center text-[14px] leading-[26px]'>
-                  {user?.tags?.custom.map((tag) => (
-                    <Link
-                      key={tag?.title}
-                      to={`/s/photos/${tag?.title}`}
-                      className='uppercase'
-                    >
-                      {tag?.title}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      User
+      <Outlet />
     </>
   );
 };
