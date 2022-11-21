@@ -4,14 +4,10 @@ import { Link, Outlet } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  fetchUser,
-  selectUser,
-  selectStatus,
-} from '../../features/user/userSlice';
+import { fetchUser, selectUser, selectStatus } from './userSlice';
 
 import UserDetails from './UserDetails';
-import Spinner from '../../components/loadingSpinners/Spinner';
+import { LoadingSpinner } from '../../components';
 
 // microsoft365
 
@@ -39,7 +35,7 @@ const User = () => {
     <>
       {status === 'pending' ? (
         <div className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]'>
-          <Spinner />
+          <LoadingSpinner />
         </div>
       ) : null}
 

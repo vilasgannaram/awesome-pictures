@@ -5,16 +5,16 @@ import {
   Route,
 } from 'react-router-dom';
 
-import { Home, User, UserPhotos, UserLikes, UserCollections } from './pages';
+import { Home, User, Photos, Likes, Collections } from './features';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path='/' element={<Home />} />
       <Route path=':username' element={<User />}>
-        <Route index element={<UserPhotos />} />
-        <Route path='likes' element={<UserLikes />} />
-        <Route path='collections' element={<UserCollections />} />
+        <Route index element={<Photos />} />
+        <Route path='likes' element={<Likes />} />
+        <Route path='collections' element={<Collections />} />
       </Route>
     </>
   )

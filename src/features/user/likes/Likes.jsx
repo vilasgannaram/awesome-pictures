@@ -4,17 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   reset,
-  fetchUserPhotos,
+  fetchUserLikes,
   selectStatus,
   selectPhotos,
   selectColumn_1,
   selectColumn_2,
   selectColumn_3,
-} from '../../features/user/userPhotosSlice';
+} from './userLikesSlice';
 
-import OptimizedPhotos from '../../components/optimizedPhotos/OptimizedPhotos';
+import { PhotosLayout } from '../../../components';
 
-const UserPhotos = () => {
+const Likes = () => {
   const { username } = useParams();
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ const UserPhotos = () => {
   useEffect(() => {
     const identifier = setTimeout(() => {
       dispatch(reset());
-      dispatch(fetchUserPhotos(username));
+      dispatch(fetchUserLikes(username));
     }, 500);
 
     return () => {
@@ -41,7 +41,7 @@ const UserPhotos = () => {
       {status === 'pending' ? <p>loading.....</p> : null}
 
       {status === 'idle' && photos.length ? (
-        <OptimizedPhotos
+        <PhotosLayout
           column_1={column_1}
           column_2={column_2}
           column_3={column_3}
@@ -53,4 +53,4 @@ const UserPhotos = () => {
   );
 };
 
-export default UserPhotos;
+export default Likes;
