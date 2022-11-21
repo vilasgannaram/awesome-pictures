@@ -69,7 +69,9 @@ const User = () => {
             ))}
           </nav>
 
-          <Outlet />
+          <div className='mx-auto mt-8 md:mt-10 md:w-[90%] lg:mt-12 lg:w-[80%]'>
+            <Outlet />
+          </div>
         </div>
       ) : null}
       {status === 'rejected' ? <p>No user found</p> : null}

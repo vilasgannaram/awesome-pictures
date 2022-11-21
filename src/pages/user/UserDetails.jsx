@@ -14,9 +14,11 @@ const UserDetails = ({ user }) => {
 
       <div className='mt-6 font-arial text-[15px] leading-6 text-gray_1 md:mt-0 md:ml-8 lg:ml-12'>
         {user.first_name || user.last_name ? (
-          <h1 className='text-[21px] font-bold leading-[25px] text-black_1'>{`${
-            user.first_name && user.first_name
-          } ${user.last_name && user.last_name}`}</h1>
+          <h1 className='text-[21px] font-bold leading-[25px] text-black_1'>
+            {`${user.first_name ? user.first_name : ''} ${
+              user.last_name ? user.last_name : ''
+            }`}
+          </h1>
         ) : null}
 
         {user.bio ? <p className='mt-3 text-black_1'>{user.bio}</p> : null}
