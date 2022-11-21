@@ -9,11 +9,8 @@ import { fetchUser, selectUser, selectStatus } from './userSlice';
 import UserDetails from './UserDetails';
 import { LoadingSpinner } from '../../components';
 
-// microsoft365
-
 const User = () => {
-  const params = useParams();
-  const user_name = params.username;
+  const { username } = useParams();
 
   const dispatch = useDispatch();
 
@@ -22,14 +19,13 @@ const User = () => {
 
   useEffect(() => {
     const identfier = setTimeout(() => {
-      dispatch(fetchUser(user_name));
+      dispatch(fetchUser(username));
     }, 500);
 
     return () => {
       clearTimeout(identfier);
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [username, dispatch]);
 
   return (
     <>
