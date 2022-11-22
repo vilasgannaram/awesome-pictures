@@ -71,7 +71,7 @@ const User = () => {
             </Link>
           </nav>
 
-          <div className='mx-auto mt-8 md:mt-10 md:w-[90%] lg:mt-12 lg:w-[80%]'>
+          <div className='mt-8 md:mt-10 lg:mt-12'>
             <Outlet />
           </div>
         </div>

@@ -5,12 +5,15 @@ import {
   Route,
 } from 'react-router-dom';
 
-import { Home, User, Photos, Likes, Collections } from './features';
+import { Home, Photo, User, Photos, Likes, Collections } from './features';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path='/' element={<Home />} />
+
+      <Route path='/photos/:photoId' element={<Photo />} />
+
       <Route path=':username' element={<User />}>
         <Route index element={<Photos />} />
         <Route path='likes' element={<Likes />} />
