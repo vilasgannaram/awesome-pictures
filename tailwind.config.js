@@ -18,7 +18,11 @@ module.exports = {
       gray_1: '#767676',
       gray_2: '#eeeeee',
     },
-    extend: {},
+    extend: {
+      boxShadow: {
+        '3xl': 'inset 0px 0px 150px 20px rgba(0, 0, 0, 0.4)',
+      },
+    },
   },
   plugins: [],
 };

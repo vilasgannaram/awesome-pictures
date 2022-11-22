@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser, selectUser, selectStatus } from './userSlice';
 
 import UserDetails from './UserDetails';
-import { LoadingSpinner } from '../../components';
+import { Spinner } from '../../components';
 
 const User = () => {
   const { username } = useParams();
@@ -31,7 +31,7 @@ const User = () => {
     <>
       {status === 'pending' ? (
         <div className='absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]'>
-          <LoadingSpinner />
+          <Spinner />
         </div>
       ) : null}
 
@@ -39,26 +39,36 @@ const User = () => {
         <div className='bounce-in-top mt-8 md:mt-12 lg:mt-16'>
           <UserDetails user={user} />
 
-          <nav className='mt-12 flex items-center border-b border-gray_2 pl-[2.5%]'>
-            {['Photos', 'Likes', 'Collections'].map((link) => (
-              <Link
-                to={
-                  link === 'Photos'
-                    ? `/${user.username}`
-                    : `/${user.username}/${link}`
-                }
-                key={link}
-                // style={({ isActive }) => {
-                //   return {
-                //     color: isActive ? '#111' : '',
-                //     borderBlockColor: isActive ? '#111' : '',
-                //   };
-                // }}
-                className='mr-8 border-b border-[white] pb-3 font-arial text-[14px] font-medium leading-[22.4px] text-gray_1 hover:border-b-black_1 hover:text-black_1 active:text-black_1'
-              >
-                {link}
-              </Link>
-            ))}
+          <nav className='mt-12 flex items-center border-b border-gray_2 pl-[2.5%] font-arial text-[15px] font-medium leading-[25px] text-gray_1'>
+            <Link
+              to={`/${user.username}`}
+              className='mr-8 border-b border-[white] pb-3 hover:border-b-black_1 hover:text-black_1'
+            >
+              Photos{' '}
+              <span className='ml-1 hidden md:inline-block'>
+                {user.total_photos}
+              </span>
+            </Link>
+
+            <Link
+              to={`/${user.username}/likes`}
+              className='mr-8 border-b border-[white] pb-3 hover:border-b-black_1 hover:text-black_1'
+            >
+              Links{' '}
+              <span className='ml-1 hidden md:inline-block'>
+                {user.total_likes}
+              </span>
+            </Link>
+
+            <Link
+              to={`/${user.username}/collections`}
+              className='mr-8 border-b border-[white] pb-3 hover:border-b-black_1 hover:text-black_1'
+            >
+              Collections{' '}
+              <span className='ml-1 hidden md:inline-block'>
+                {user.total_collections}
+              </span>
+            </Link>
           </nav>
 
           <div className='mx-auto mt-8 md:mt-10 md:w-[90%] lg:mt-12 lg:w-[80%]'>

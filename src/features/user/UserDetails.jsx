@@ -14,7 +14,7 @@ const UserDetails = ({ user }) => {
 
       <div className='mt-6 font-arial text-[15px] leading-6 text-gray_1 md:mt-0 md:ml-8 lg:ml-12'>
         {user.first_name || user.last_name ? (
-          <h1 className='text-[21px] font-bold leading-[25px] text-black_1'>
+          <h1 className='text-[21px] font-bold leading-[25px] text-black_1 md:text-3xl lg:text-4xl'>
             {`${user.first_name ? user.first_name : ''} ${
               user.last_name ? user.last_name : ''
             }`}
@@ -27,13 +27,6 @@ const UserDetails = ({ user }) => {
           <div className='mt-3 flex items-center text-blue_1'>
             <span className='material-icons text-base'>check_circle</span>
             <p className='ml-3'>Available for hire</p>
-          </div>
-        ) : null}
-
-        {user.social.paypal_email ? (
-          <div className='mt-1.5 flex items-center'>
-            <span className='material-icons text-base'>account_balance</span>
-            <p className='ml-3'>Support on PayPal</p>
           </div>
         ) : null}
 

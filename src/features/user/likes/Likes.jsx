@@ -12,7 +12,7 @@ import {
   selectColumn_3,
 } from './userLikesSlice';
 
-import { PhotosLayout } from '../../../components';
+import { PhotosLayout, BounceSpinner } from '../../../components';
 
 const Likes = () => {
   const { username } = useParams();
@@ -38,7 +38,7 @@ const Likes = () => {
 
   return (
     <div>
-      {status === 'pending' ? <p>loading.....</p> : null}
+      {status === 'pending' ? <BounceSpinner /> : null}
 
       {status === 'idle' && photos.length ? (
         <PhotosLayout
