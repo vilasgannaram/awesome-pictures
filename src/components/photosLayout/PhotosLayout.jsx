@@ -16,7 +16,7 @@ const PhotosLayout = ({ column_1, column_2, column_3 }) => {
         ))}
       </div>
 
-      <div>
+      <div className='md:hidden lg:inline-block'>
         {column_3.map((photo, index) => (
           <Image key={index} photo={photo} />
         ))}

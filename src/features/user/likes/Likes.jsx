@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
   reset,
   fetchUserLikes,
+  selectTotalPhotos,
   selectStatus,
   selectPhotos,
   selectColumn_1,
@@ -15,36 +16,63 @@ import {
 import { PhotosLayout, BounceSpinner } from '../../../components';
 
 const Likes = () => {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loadMore, setLoadMore] = useState(false);
+  const [initial, setInitial] = useState(true);
+
   const { username } = useParams();
   const dispatch = useDispatch();
 
   const status = useSelector(selectStatus);
-  const photos = useSelector(selectPhotos);
-  const column_1 = useSelector(selectColumn_1);
-  const column_2 = useSelector(selectColumn_2);
-  const column_3 = useSelector(selectColumn_3);
+  const PHOTOS = useSelector(selectPhotos);
+  const TOTAL_PHOTOS = useSelector(selectTotalPhotos);
+  const COLUMN_1 = useSelector(selectColumn_1);
+  const COLUMN_2 = useSelector(selectColumn_2);
+  const COLUMN_3 = useSelector(selectColumn_3);
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      dispatch(reset());
-      dispatch(fetchUserLikes(username));
+      if (loadMore || initial) {
+        if (initial) dispatch(reset());
+        if (TOTAL_PHOTOS === PHOTOS.length) return;
+
+        dispatch(fetchUserLikes({ username, pageNumber }));
+        setPageNumber((prevPageNum) => prevPageNum + 1);
+        setLoadMore(false);
+        setInitial(false);
+      }
     }, 500);
 
     return () => {
       clearTimeout(identifier);
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [
+    dispatch,
+    pageNumber,
+    loadMore,
+    username,
+    initial,
+    PHOTOS.length,
+    TOTAL_PHOTOS,
+  ]);
+
+  window.addEventListener('scroll', () => {
+    const { clientHeight, scrollHeight, scrollTop } = document.documentElement;
+    if (TOTAL_PHOTOS === PHOTOS.length) return;
+    if (scrollTop + clientHeight + 1 >= scrollHeight) {
+      setLoadMore(true);
+    }
+  });
 
   return (
     <div>
       {status === 'pending' ? <BounceSpinner /> : null}
 
-      {status === 'idle' && photos.length ? (
+      {PHOTOS.length ? (
         <PhotosLayout
-          column_1={column_1}
-          column_2={column_2}
-          column_3={column_3}
+          column_1={COLUMN_1}
+          column_2={COLUMN_2}
+          column_3={COLUMN_3}
         />
       ) : null}
 

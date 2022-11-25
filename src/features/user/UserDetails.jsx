@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 const UserDetails = ({ user }) => {
   return (
     <div className='mx-auto w-[95%] md:flex md:w-[70%] lg:w-[50%]'>
-      <figure className='w-[120px] rounded-[50%] shadow-sm drop-shadow-sm md:min-w-[150px]'>
+      <figure className='w-[120px] drop-shadow-sm md:min-w-[150px]'>
         <img
-          className='w-full rounded-[50%] object-contain font-arial text-sm'
+          className='w-full rounded-[50%] object-contain font-arial text-sm shadow '
           src={user.profile_image.large}
           alt={user.username}
         />

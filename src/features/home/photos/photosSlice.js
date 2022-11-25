@@ -6,7 +6,6 @@ const unsplash = createApi({ accessKey: process.env.REACT_APP_ACCESS_KEY });
 const initialState = {
   status: 'idle',
   photos: [],
-
   tempPhotos: [],
 
   column_1: [],
@@ -65,6 +64,7 @@ export const photosSlice = createSlice({
 
 export const selectStatus = (state) => state.photos.status;
 export const selectPhotos = (state) => state.photos.photos;
+
 export const selectColumn_1 = (state) => state.photos.column_1;
 export const selectColumn_2 = (state) => state.photos.column_2;
 export const selectColumn_3 = (state) => state.photos.column_3;

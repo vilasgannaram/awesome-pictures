@@ -6,7 +6,7 @@ const unsplash = createApi({ accessKey: process.env.REACT_APP_ACCESS_KEY });
 const initialState = {
   status: 'idle',
   photos: [],
-
+  totalPhotos: undefined,
   tempPhotos: [],
 
   column_1: [],
@@ -16,17 +16,17 @@ const initialState = {
 
 export const fetchUserLikes = createAsyncThunk(
   'userLikes/fetchUserLikes',
-  async (username) => {
+  async (action) => {
     const result = await unsplash.users.getLikes({
-      username: username,
-      page: 1,
+      username: action.username,
+      page: action.pageNumber,
       perPage: 10,
       orderBy: 'latest',
       // orientation: 'landscape',
     });
 
     const { response } = result;
-    return response.results;
+    return response;
   }
 );
 
@@ -47,11 +47,11 @@ const userLikesSlice = createSlice({
       })
       .addCase(fetchUserLikes.fulfilled, (state, action) => {
         state.status = 'idle';
+        state.photos = [...state.photos, ...action.payload.results];
+        state.totalPhotos = action.payload.total;
 
-        state.photos = [...state.photos, ...action.payload];
-
-        state.tempPhotos = action.payload;
-        const threeIndexNum = Math.floor(action.payload.length / 3);
+        state.tempPhotos = action.payload.results;
+        const threeIndexNum = Math.floor(action.payload.results.length / 3);
 
         state.column_3 = [
           ...state.column_3,
@@ -73,6 +73,7 @@ const userLikesSlice = createSlice({
 
 export const selectStatus = (state) => state.userLikes.status;
 export const selectPhotos = (state) => state.userLikes.photos;
+export const selectTotalPhotos = (state) => state.userLikes.totalPhotos;
 export const selectColumn_1 = (state) => state.userLikes.column_1;
 export const selectColumn_2 = (state) => state.userLikes.column_2;
 export const selectColumn_3 = (state) => state.userLikes.column_3;

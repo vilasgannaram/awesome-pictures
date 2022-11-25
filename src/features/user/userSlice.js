@@ -6,13 +6,12 @@ const unsplash = createApi({ accessKey: process.env.REACT_APP_ACCESS_KEY });
 const initialState = {
   status: 'idle',
   user: {},
-  photos: [],
 };
 
 export const fetchUser = createAsyncThunk(
   'user/fetchUser',
-  async (user_name) => {
-    const result = await unsplash.users.get({ username: user_name });
+  async (username) => {
+    const result = await unsplash.users.get({ username: username });
     return result.response;
   }
 );
@@ -23,7 +22,6 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // user
       .addCase(fetchUser.pending, (state) => {
         state.status = 'pending';
       })
