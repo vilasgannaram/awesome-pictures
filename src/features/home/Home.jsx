@@ -7,7 +7,9 @@ import Photos from './photos/Photos';
 const Home = () => {
   return (
     <div>
-      <div className='my-3 text-3xl'>Home</div>
+      <div className='mt-6 mb-12 ml-6 font-seoge text-2xl'>
+        Awesome Pictures
+      </div>
       <HeroSection />
       {/* <List /> */}
       <Photos />

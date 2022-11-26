@@ -25,6 +25,7 @@ const User = () => {
     };
   }, [username, dispatch]);
 
+  console.log(user);
   return (
     <>
       {status === 'pending' ? (

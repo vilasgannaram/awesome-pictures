@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import insta from '../../assets/instagram.gif';
+import twitter from '../../assets/twitter.gif';
+import portfolio from '../../assets/earth-globe.gif';
+
 const UserDetails = ({ user }) => {
   return (
     <div className='mx-auto w-[95%] md:flex md:w-[70%] lg:w-[50%]'>
@@ -40,9 +44,34 @@ const UserDetails = ({ user }) => {
         {user.social.portfolio_url ||
         user.social.twitter_username ||
         user.social.instagram_username ? (
-          <div className='mt-1.5 flex items-center'>
+          <div className='mt-1.5 flex items-start'>
             <span className='material-icons -rotate-45 text-base'>link</span>
-            <p className='ml-3'>Connect with {user.first_name}</p>
+            <p className='ml-3 flex items-center'>
+              <span>Connect with {user.first_name}</span>
+              <span className='mt-2 ml-3 flex'>
+                {user.social.instagram_username && (
+                  <a
+                    href={`https://www.instagram.com/${user.social.instagram_username}`}
+                  >
+                    <img className='mx-1 w-6' src={insta} alt='instagram' />
+                  </a>
+                )}
+
+                {user.social.twitter_username && (
+                  <a
+                    href={`https://twitter.com/${user.social.twitter_username}`}
+                  >
+                    <img className='mx-1 w-6' src={twitter} alt='twitter' />
+                  </a>
+                )}
+
+                {user.social.portfolio_url && (
+                  <a href={`${user.social.portfolio_url}`}>
+                    <img className='mx-1 w-6' src={portfolio} alt='portfolio' />
+                  </a>
+                )}
+              </span>
+            </p>
           </div>
         ) : null}
 
