@@ -1,8 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Blurhash } from 'react-blurhash';
 
 const Image = ({ photo }) => {
   const [showUser, setShowUser] = useState(false);
+
+  // const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  const [height, setHeight] = useState(0);
+  const [width, setWidth] = useState(0);
+
+  const ref = useRef(null);
+
+  useEffect(() => {
+    setWidth(ref.current.offsetWidth);
+
+    setHeight(() => {
+      const aspectRatio = photo.height / photo.width;
+      return aspectRatio * ref.current.offsetWidth;
+    });
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className='mb-12 max-h-min md:mt-6 md:mb-0'>
@@ -26,16 +47,33 @@ const Image = ({ photo }) => {
       </div>
 
       <figure
+        ref={ref}
         className='relative'
         onMouseEnter={() => setShowUser(true)}
         onMouseLeave={() => setShowUser(false)}
       >
-        <img
-          className='w-full object-contain'
-          src={photo.urls.full}
-          loading='lazy'
-          alt={photo.description}
-        />
+        <div className='relative'>
+          <LazyLoadImage
+            className='w-full object-contain'
+            src={photo.urls.full}
+            alt={photo.description}
+            width={width}
+            height={height}
+            afterLoad={() => setLoaded(true)}
+            // beforeLoad={() => setLoading(true)}
+            threshold={40}
+          />
+          <div className={`${loaded && 'hidden'} absolute top-0 left-0`}>
+            <Blurhash
+              width={width}
+              height={height}
+              hash={photo.blur_hash}
+              resolutionX={32}
+              resolutionY={32}
+              punch={1}
+            />
+          </div>
+        </div>
 
         <Link
           to={`/photos/${photo.id}`}
