@@ -24,8 +24,6 @@ const HeroSection = () => {
     // eslint-disable-next-line
   }, []);
 
-  console.log(photo);
-
   return (
     <div>
       <figure className='relative'>

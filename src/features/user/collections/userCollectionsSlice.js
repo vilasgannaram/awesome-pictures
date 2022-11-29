@@ -6,12 +6,12 @@ const unsplash = createApi({ accessKey: process.env.REACT_APP_ACCESS_KEY });
 const initialState = {
   status: 'idle',
   collections: [],
+  total_collections: undefined,
 };
 
 export const fetchUserCollections = createAsyncThunk(
   'userCollections/fetchUserCollections',
   async (action) => {
-    console.log('1');
     const result = await unsplash.users.getCollections({
       username: action.username,
       page: action.pageNumber,
@@ -24,7 +24,12 @@ export const fetchUserCollections = createAsyncThunk(
 export const userCollectionsSlice = createSlice({
   name: 'userCollections',
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      Object.assign(state, initialState);
+    },
+  },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserCollections.pending, (state) => {
@@ -33,6 +38,7 @@ export const userCollectionsSlice = createSlice({
       .addCase(fetchUserCollections.fulfilled, (state, action) => {
         state.status = 'idle';
         state.collections = [...state.collections, ...action.payload.results];
+        state.total_collections = action.payload.total;
       })
       .addCase(fetchUserCollections.rejected, (state) => {
         state.status = 'rejected';
@@ -41,5 +47,9 @@ export const userCollectionsSlice = createSlice({
 });
 
 export const selectCollections = (state) => state.userCollections.collections;
+export const selectTotalCollections = (state) =>
+  state.userCollections.total_collections;
+export const selectStatus = (state) => state.userCollections.status;
 
+export const { reset } = userCollectionsSlice.actions;
 export default userCollectionsSlice.reducer;
