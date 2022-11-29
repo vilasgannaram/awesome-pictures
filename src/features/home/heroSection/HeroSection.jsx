@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { createApi } from 'unsplash-js';
 const unsplash = createApi({ accessKey: process.env.REACT_APP_ACCESS_KEY });
@@ -23,14 +24,32 @@ const HeroSection = () => {
     // eslint-disable-next-line
   }, []);
 
+  console.log(photo);
+
   return (
     <div>
-      <figure className='border-0 outline-none'>
+      <figure className='relative'>
         <img
-          className='h-[600px] w-full border-0 object-cover outline-none'
+          className='mb-16 max-h-[600px] w-full border-0 object-cover shadow drop-shadow md:mb-6'
           src={photo?.urls?.full}
           alt=''
         />
+
+        {photo?.user?.first_name && (
+          <h2 className='absolute bottom-3 left-6 z-20 font-seoge text-base text-[white]'>
+            <Link to={`/photos/${photo.id}`} className=' font-medium'>
+              photo
+            </Link>{' '}
+            by{' '}
+            <Link
+              to={`/${photo?.user.username}`}
+              className='font-medium underline'
+            >
+              {photo.user.first_name ? photo.user.first_name : ''}{' '}
+              {photo.user.last_name ? photo.user.last_name : ''}
+            </Link>
+          </h2>
+        )}
       </figure>
     </div>
   );

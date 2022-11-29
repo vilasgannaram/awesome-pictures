@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser, selectUser, selectStatus } from './userSlice';
@@ -11,6 +11,7 @@ import { Spinner } from '../../components';
 const User = () => {
   const { username } = useParams();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const user = useSelector(selectUser);
   const status = useSelector(selectStatus);
@@ -25,7 +26,6 @@ const User = () => {
     };
   }, [username, dispatch]);
 
-  console.log(user);
   return (
     <>
       {status === 'pending' ? (
@@ -41,7 +41,10 @@ const User = () => {
           <nav className='mt-12 flex items-center border-b border-gray_2 pl-[2.5%] font-arial text-[15px] font-medium leading-[25px] text-gray_1'>
             <Link
               to={`/${username}`}
-              className='mr-8 border-b border-[white] pb-3 hover:border-b-black_1 hover:text-black_1'
+              className={`mr-8 border-b border-[white] pb-3 hover:border-b-black_1 hover:text-black_1 ${
+                location.pathname === `/${username}` &&
+                'border-b-black_1 text-black_1'
+              }`}
             >
               Photos
               <span className='ml-1 hidden md:inline-block'>
@@ -51,7 +54,10 @@ const User = () => {
 
             <Link
               to={`/${username}/likes`}
-              className='mr-8 border-b border-[white] pb-3 hover:border-b-black_1 hover:text-black_1'
+              className={`mr-8 border-b border-[white] pb-3 hover:border-b-black_1 hover:text-black_1 ${
+                location.pathname === `/${username}/likes` &&
+                'border-b-black_1 text-black_1'
+              }`}
             >
               Likes
               <span className='ml-1 hidden md:inline-block'>
@@ -61,7 +67,10 @@ const User = () => {
 
             <Link
               to={`/${username}/collections`}
-              className='mr-8 border-b border-[white] pb-3 hover:border-b-black_1 hover:text-black_1'
+              className={`mr-8 border-b border-[white] pb-3 hover:border-b-black_1 hover:text-black_1 ${
+                location.pathname === `/${username}/collections` &&
+                'border-b-black_1 text-black_1'
+              }`}
             >
               Collections{' '}
               <span className='ml-1 hidden md:inline-block'>

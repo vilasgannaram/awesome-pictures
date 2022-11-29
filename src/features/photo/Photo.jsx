@@ -35,7 +35,7 @@ const Photo = () => {
 
       {photo && (
         <div className='mt-12'>
-          <figure>
+          <figure className='mx-auto w-full lg:w-1/3'>
             <img
               className='w-full rounded-lg object-contain shadow-lg drop-shadow-lg'
               src={photo.urls.full}

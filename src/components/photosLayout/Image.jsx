@@ -28,7 +28,7 @@ const Image = ({ photo }) => {
   return (
     <div className='mb-12 max-h-min md:mt-6 md:mb-0'>
       {/* mobile:: user name */}
-      <div className='ml-3 mb-3 flex items-center md:hidden'>
+      <div className='ml-3 mb-2 flex items-center md:hidden'>
         <Link to={`/${photo.user.username}`}>
           <img
             className='w-8 rounded-[50%] object-contain'
@@ -54,7 +54,7 @@ const Image = ({ photo }) => {
       >
         <div className='relative'>
           <LazyLoadImage
-            className='w-full object-contain'
+            className='w-full object-contain shadow drop-shadow'
             src={photo.urls.full}
             alt={photo.description}
             width={width}

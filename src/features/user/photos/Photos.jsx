@@ -76,6 +76,12 @@ const Photos = () => {
         />
       )}
 
+      {PHOTOS.length === 0 && !initial && (
+        <p className='mt-16 text-center font-arial text-gray_1'>
+          No photos found
+        </p>
+      )}
+
       {/* {status === 'rejected' ? <p>No photos found</p> : null} */}
     </div>
   );

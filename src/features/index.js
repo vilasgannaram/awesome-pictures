@@ -23,3 +23,4 @@ export { default as userLikesReducer } from './user/likes/userLikesSlice';
 
 // user collections
 export { default as Collections } from './user/collections/Collections';
+export { default as userCollectionsReducer } from './user/collections/userCollectionsSlice';

@@ -7,6 +7,7 @@ import {
   userReducer,
   userPhotosReducer,
   userLikesReducer,
+  userCollectionsReducer,
 } from '../features';
 
 export const store = configureStore({
@@ -17,5 +18,6 @@ export const store = configureStore({
     user: userReducer,
     userPhotos: userPhotosReducer,
     userLikes: userLikesReducer,
+    userCollections: userCollectionsReducer,
   },
 });

@@ -15,7 +15,7 @@ const router = createBrowserRouter(
       <Route path='/photos/:photoId' element={<Photo />} />
 
       <Route path=':username' element={<User />}>
-        <Route index element={<Photos />} />
+        <Route path='' element={<Photos />} />
         <Route path='likes' element={<Likes />} />
         <Route path='collections' element={<Collections />} />
       </Route>
